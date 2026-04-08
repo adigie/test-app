@@ -30,3 +30,10 @@ jobs:
         shell: bash
         run: |
           west build -b native_sim hello_world
+
+      - name: Run
+        working-directory: test-app
+        shell: bash
+        timeout-minutes: 1
+        run: |
+          ./build/zephyr/zephyr.exe -stop_at=0
