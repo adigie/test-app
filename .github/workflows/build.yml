@@ -10,6 +10,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          path: test-app
+          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -19,9 +22,11 @@ jobs:
       - name: Setup Zephyr project
         uses: zephyrproject-rtos/action-zephyr-setup@v1
         with:
-          app-path: .
+          app-path: test-app
           toolchains: x86_64-zephyr-elf
 
       - name: Build
+        working-directory: test-app
+        shell: bash
         run: |
           west build -b native_sim hello_world
